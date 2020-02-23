@@ -6,3 +6,5 @@ O arquivo LSTM.py contém os parâmetros e métodos para criar e treinar uma cé
 O arquivo treino.py utiliza os métodos da classe LSTM para executar uma primeira leva de seções de treino.
 
 O arquivo treino_continuado.py permite a continuação do treino por um número indefinido de seções.
+
+O arquivo Livros.txt é uma compilação de livros. Este arquivo é utilizado pelo método criado no arquivo treino.py para criar exemplos de treino de qualquer tamanho.
