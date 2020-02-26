@@ -140,9 +140,9 @@ for secao in range(secoes):
     for i, exemplo in enumerate(lstm.T):
         x,d = exemplo
         C = lstm._C_(x,lstm.h_a)
-        h = lstm._h_(x,lstm.h_a)
+        h = lstm._h_(C,x,lstm.h_a)
 
-        lstm.delta_parametros_treinaveis(C,h,d,x)
+        lstm.delta_parametros_treinaveis(C,h,lstm.h_a,d,x)
 
         lstm.C_a = np.copy(C)
         lstm.h_a = np.copy(h)

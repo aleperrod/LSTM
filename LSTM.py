@@ -96,8 +96,8 @@ class LSTM():
     def _C_(self,x,h_a):
         return ( self.C_a * self._i_(x,h_a) ) + ( self._f_(x,h_a) * self._m_(x,h_a) )
 
-    def _h_(self,x,h_a):
-        return np.tanh( self.C_a ) * self._o_(x,h_a)
+    def _h_(self,C,x,h_a):
+        return np.tanh( C ) * self._o_(x,h_a)
 
 
     #Gradientes locais de cada elemento da LSTM.
@@ -114,21 +114,21 @@ class LSTM():
         return (h-d)*np.tanh(C)*self.o*(1-self.o)
 
     
-    def delta_parametros_treinaveis(self,C,h,d,x):
+    def delta_parametros_treinaveis(self,C,h,h_a,d,x):
         self.delta_W_i += self.eta_i * np.outer( x , self.dE_dv_i(C,h,d) )
-        self.delta_U_i += self.eta_i * np.outer( h , self.dE_dv_i(C,h,d) )
+        self.delta_U_i += self.eta_i * np.outer( h_a , self.dE_dv_i(C,h,d) )
         self.delta_b_i += self.eta_i * self.dE_dv_i(C,h,d)
 
         self.delta_W_f += self.eta_f * np.outer( x , self.dE_dv_f(C,h,d) )
-        self.delta_U_f += self.eta_f * np.outer( h , self.dE_dv_f(C,h,d) )
+        self.delta_U_f += self.eta_f * np.outer( h_a , self.dE_dv_f(C,h,d) )
         self.delta_b_f += self.eta_f * self.dE_dv_f(C,h,d)
 
         self.delta_W_m += self.eta_m * np.outer( x , self.dE_dv_m(C,h,d) )
-        self.delta_U_m += self.eta_m * np.outer( h , self.dE_dv_m(C,h,d) )
+        self.delta_U_m += self.eta_m * np.outer( h_a , self.dE_dv_m(C,h,d) )
         self.delta_b_m += self.eta_m * self.dE_dv_m(C,h,d)
 
         self.delta_W_o += self.eta_o * np.outer( x , self.dE_dv_o(C,h,d) )
-        self.delta_U_o += self.eta_o * np.outer( h , self.dE_dv_o(C,h,d) )
+        self.delta_U_o += self.eta_o * np.outer( h_a , self.dE_dv_o(C,h,d) )
         self.delta_b_o += self.eta_o * self.dE_dv_o(C,h,d)
 
 
